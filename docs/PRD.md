@@ -48,7 +48,7 @@ El sitio tiene **dos tipos de página**. Inicio es una sola página que se recor
 
 Elementos comunes:
 
-- Cabecera fija con tu nombre, enlaces a las secciones de Inicio (marca la sección visible), selector de idioma que conserva la ruta actual y botón de tema claro/oscuro.
+- Cabecera fija con tu nombre, enlaces a las secciones de Inicio (marca la sección visible), selector de idioma que conserva la ruta actual y botón de tema claro/oscuro. En móvil, los enlaces a secciones pasan a un menú desplegable (sección 9.4).
 - Pie con enlaces de contacto.
 - Página de error (`app/error.vue`).
 
@@ -157,6 +157,7 @@ Almagra es el rojo de los arcos de la Mezquita, azulejo y albero son los otros c
 
 - Todo alineado a la izquierda, con un contenedor de 1120 px de máximo y 16 px de margen lateral en móvil.
 - Esquinas de 6 px en tarjetas, botones y etiquetas, sin sombras: las superficies se separan con `--line`.
+- Cabecera en móvil (< 768 px): el nombre, el selector de idioma y el botón de tema siguen visibles, y los enlaces a secciones se recogen en un menú desplegable bajo la cabecera que abre un botón de icono ☰ con `aria-label` «Menú». El botón indica su estado con `aria-expanded`; el menú se cierra con Escape, al elegir una sección o al pulsar fuera, y el foco vuelve al botón.
 - Proyectos: Stories Factory destacado a todo el ancho; Tripshot, Unified LLM Gateway y Documind en una rejilla de 2 columnas, más una tarjeta discontinua «¿Tu proyecto?» que lleva a contacto. En móvil, una sola columna.
 
 ```
@@ -318,3 +319,4 @@ Mientras no lleguen se usan placeholders, así que no bloquean la implementació
 | 23  | Sin 3D: SVG + CSS                                                                    | Escena 3D ligera con TresJS                       |
 | 24  | Grotesca técnica + mono                                                              | Editorial (serif + sans), una sola sans expresiva |
 | 25  | Dirección A · Cal y almagra (Schibsted Grotesk + IBM Plex Mono)                      | B · Azul Klein (Switzer + Fragment Mono)          |
+| 26  | Cabecera móvil con menú desplegable para las secciones                               | Iniciales sin enlaces a secciones                 |
