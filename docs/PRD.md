@@ -117,19 +117,19 @@ Se priorizan **pocas fichas trabajadas a fondo** frente a muchas superficiales.
 
 ## 10. Stack técnico
 
-| Área               | Elección                                                                      |
-| ------------------ | ----------------------------------------------------------------------------- |
-| Framework          | Nuxt 4 (`app/` como raíz del código)                                          |
-| Gestor de paquetes | pnpm                                                                          |
-| UI                 | shadcn-vue a través de `shadcn-nuxt`, con componentes en `app/components/ui/` |
-| Estilos            | Tailwind CSS v4 (`@tailwindcss/vite`)                                         |
-| Tema               | `@nuxtjs/color-mode` (`classSuffix: ''`)                                      |
-| i18n               | `@nuxtjs/i18n` (`strategy: 'prefix_except_default'`)                          |
-| Contenido          | `@nuxt/content` con colecciones por idioma y esquema zod                      |
-| Analítica          | `@vercel/analytics`                                                           |
-| Lint y formato     | `@nuxt/eslint` + Prettier, configuración por defecto                          |
-| Hosting            | Vercel (estático), `*.vercel.app`                                             |
-| Repositorio        | `JCCG-code/jccg-code-portal`, público                                         |
+| Área               | Elección                                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework          | Nuxt 4 (`app/` como raíz del código)                                                                                                              |
+| Gestor de paquetes | pnpm                                                                                                                                              |
+| UI                 | shadcn-vue a través de `shadcn-nuxt`, con componentes en `app/components/ui/`                                                                     |
+| Estilos            | Tailwind CSS v4 (`@tailwindcss/vite`)                                                                                                             |
+| Tema               | `@nuxtjs/color-mode` (`classSuffix: ''`)                                                                                                          |
+| i18n               | `@nuxtjs/i18n` (`strategy: 'prefix_except_default'`)                                                                                              |
+| Contenido          | `@nuxt/content` con colecciones por idioma y esquema zod                                                                                          |
+| Analítica          | `@vercel/analytics`                                                                                                                               |
+| Lint y formato     | `@nuxt/eslint` + Prettier con la configuración de Tripshot (`.prettierrc.json`: sin `;`, comillas simples, sin trailing commas) y `.editorconfig` |
+| Hosting            | Vercel (estático), `*.vercel.app`                                                                                                                 |
+| Repositorio        | `JCCG-code/jccg-code-portal`, público                                                                                                             |
 
 ### Estructura prevista
 
