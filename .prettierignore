@@ -1,0 +1,3 @@
+pnpm-lock.yaml
+# Third-party skills, kept as published upstream
+.claude/skills
