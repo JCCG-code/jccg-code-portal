@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Direcciones de diseño</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&family=Fragment+Mono&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,700,800&display=swap"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #dcdcd8;
+        font:
+          15px/1.5 system-ui,
+          sans-serif;
+        color: #222;
+      }
+      .page {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 32px 16px 64px;
+      }
+      .page > h1 {
+        font-size: 22px;
+        margin: 0 0 4px;
+      }
+      .page > p {
+        margin: 0 0 24px;
+        color: #555;
+      }
+      .direction {
+        margin-bottom: 48px;
+      }
+      .direction > h2 {
+        font-size: 18px;
+        margin: 0 0 4px;
+      }
+      .direction > p {
+        margin: 0 0 16px;
+        color: #555;
+        max-width: 75ch;
+      }
+      .modes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 620px), 1fr));
+        gap: 16px;
+      }
+      .swatches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0 0;
+      }
+      .swatch {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        border-radius: 6px;
+        padding: 4px 10px 4px 4px;
+        font-size: 13px;
+      }
+      .swatch i {
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+        border: 1px solid rgb(0 0 0 / 0.12);
+      }
+
+      /* ---------- Direction tokens ---------- */
+      .dir-a.light {
+        --bg: #f6f6f2;
+        --surface: #ffffff;
+        --text: #18202b;
+        --muted: #5b6573;
+        --line: #dfe1dc;
+        --accent: #a8322a;
+        --accent-text: #ffffff;
+        --term-bg: #121921;
+        --term-text: #d5dce3;
+        --term-prompt: #63b5be;
+        --term-cursor: #d9a441;
+        --term-dim: #8b96a2;
+      }
+      .dir-a.dark {
+        --bg: #121921;
+        --surface: #19222c;
+        --text: #e8eae6;
+        --muted: #9aa4af;
+        --line: #26313d;
+        --accent: #e0675c;
+        --accent-text: #121921;
+        --term-bg: #0b1016;
+        --term-text: #d5dce3;
+        --term-prompt: #63b5be;
+        --term-cursor: #d9a441;
+        --term-dim: #8b96a2;
+      }
+      .dir-a {
+        --display: 'Schibsted Grotesk', sans-serif;
+        --body: 'Schibsted Grotesk', sans-serif;
+        --mono: 'IBM Plex Mono', monospace;
+        --radius: 6px;
+        --h1-weight: 800;
+        --h1-tracking: -0.02em;
+      }
+      .dir-b.light {
+        --bg: #fafaf7;
+        --surface: #ffffff;
+        --text: #1b1d21;
+        --muted: #5f636b;
+        --line: #e4e4df;
+        --accent: #1f3bd1;
+        --accent-text: #ffffff;
+        --term-bg: #1f3bd1;
+        --term-text: #ffffff;
+        --term-prompt: #c9d2ff;
+        --term-cursor: #ffffff;
+        --term-dim: #c9d2ff;
+      }
+      .dir-b.dark {
+        --bg: #0f1117;
+        --surface: #161922;
+        --text: #ecedef;
+        --muted: #9a9ea8;
+        --line: #252a36;
+        --accent: #8ea0ff;
+        --accent-text: #0f1117;
+        --term-bg: #1f3bd1;
+        --term-text: #ffffff;
+        --term-prompt: #c9d2ff;
+        --term-cursor: #ffffff;
+        --term-dim: #c9d2ff;
+      }
+      .dir-b {
+        --display: 'Switzer', sans-serif;
+        --body: 'Switzer', sans-serif;
+        --mono: 'Fragment Mono', monospace;
+        --radius: 2px;
+        --h1-weight: 700;
+        --h1-tracking: -0.035em;
+      }
+
+      /* ---------- Mock page ---------- */
+      .mock {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--body);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgb(0 0 0 / 0.08);
+      }
+      .mode-label {
+        font: 12px system-ui;
+        color: var(--muted);
+        padding: 8px 20px 0;
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+      .nav strong {
+        font-family: var(--display);
+        font-weight: 700;
+        margin-right: auto;
+      }
+      .nav a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+      .nav a.active {
+        color: var(--text);
+        box-shadow: inset 0 -2px 0 var(--accent);
+        padding-bottom: 2px;
+      }
+      .nav .lang {
+        color: var(--muted);
+      }
+      .hero {
+        padding: 48px 20px 40px;
+      }
+      .hero h1 {
+        font-family: var(--display);
+        font-weight: var(--h1-weight);
+        letter-spacing: var(--h1-tracking);
+        font-size: clamp(40px, 6vw, 64px);
+        line-height: 0.98;
+        margin: 0 0 18px;
+        max-width: 11ch;
+      }
+      .hero p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: var(--muted);
+        max-width: 44ch;
+        margin: 0 0 24px;
+      }
+      .ctas {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        font: 500 15px var(--body);
+        padding: 10px 18px;
+        border-radius: var(--radius);
+        border: 1px solid var(--accent);
+        background: var(--accent);
+        color: var(--accent-text);
+      }
+      .btn.secondary {
+        background: transparent;
+        color: var(--text);
+        border-color: var(--line);
+      }
+      .terminal {
+        background: var(--term-bg);
+        color: var(--term-text);
+        font: 14px/1.7 var(--mono);
+        padding: 24px 20px;
+      }
+      .terminal .p {
+        color: var(--term-prompt);
+      }
+      .terminal .d {
+        color: var(--term-dim);
+      }
+      .terminal .cur {
+        display: inline-block;
+        width: 0.6em;
+        height: 1.1em;
+        vertical-align: text-bottom;
+        background: var(--term-cursor);
+      }
+      .terminal pre {
+        margin: 0;
+        font: inherit;
+        white-space: pre-wrap;
+      }
+      .projects {
+        padding: 32px 20px 36px;
+      }
+      .projects h2 {
+        font-family: var(--display);
+        font-weight: var(--h1-weight);
+        letter-spacing: var(--h1-tracking);
+        font-size: 32px;
+        margin: 0 0 18px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .card .cover {
+        aspect-ratio: 16 / 7;
+        background:
+          linear-gradient(135deg, var(--term-bg), transparent 70%),
+          repeating-linear-gradient(
+            90deg,
+            var(--line) 0 1px,
+            transparent 1px 24px
+          );
+      }
+      .card .body {
+        padding: 14px 16px 16px;
+      }
+      .card h3 {
+        font-family: var(--display);
+        font-size: 20px;
+        margin: 0 0 4px;
+      }
+      .card p {
+        margin: 0 0 12px;
+        color: var(--muted);
+      }
+      .tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .tags span {
+        font-size: 13px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 2px 8px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <h1>Dos direcciones para jccg-code-portal</h1>
+      <p>
+        Mismo contenido y misma estructura; cambian paleta, tipografía y
+        carácter. Cada una en modo claro y oscuro.
+      </p>
+
+      <template id="mock">
+        <div class="mode-label"></div>
+        <nav class="nav">
+          <strong>Juan Carlos Cuadrado</strong>
+          <a href="#">Sobre mí</a>
+          <a href="#" class="active">Proyectos</a>
+          <a href="#">Contacto</a>
+          <span class="lang">ES / EN</span>
+        </nav>
+        <section class="hero">
+          <h1>Juan Carlos Cuadrado</h1>
+          <p>
+            Ingeniero full-stack en Córdoba. Construyo productos web con Vue,
+            Node e IA aplicada, de la idea a producción.
+          </p>
+          <div class="ctas">
+            <button class="btn">Ver proyectos</button>
+            <button class="btn secondary">Descargar CV</button>
+          </div>
+        </section>
+        <section class="terminal">
+          <pre><span class="p">~ $</span> whoami
+Juan Carlos Cuadrado, ingeniero full-stack
+<span class="p">~ $</span> cat stack.json
+{ "frontend": ["Vue", "Nuxt"], "backend": ["Node", "Python"],
+  "ia": ["Gemini", "Veo", "LLM gateways"] }
+<span class="p">~ $</span> git log --oneline carrera
+<span class="d">a3f9e21</span> Deutsche Telekom, desarrollo full-stack (actual)
+<span class="p">~ $</span> ls proyectos/
+stories-factory/  tripshot/  unified-llm-gateway/  documind/
+<span class="p">~ $</span> <span class="cur"></span></pre>
+        </section>
+        <section class="projects">
+          <h2>Proyectos</h2>
+          <article class="card">
+            <div class="cover"></div>
+            <div class="body">
+              <h3>Stories Factory</h3>
+              <p>De una idea a un vídeo publicado, sin intervención humana.</p>
+              <div class="tags">
+                <span>n8n</span><span>Gemini</span><span>Veo</span
+                ><span>FFmpeg</span>
+              </div>
+            </div>
+          </article>
+        </section>
+      </template>
+
+      <section class="direction">
+        <h2>A · Cal y almagra</h2>
+        <p>
+          Anclada en Córdoba: fondo de cal, tinta azul profunda y el rojo
+          almagra de los arcos de la Mezquita como único acento. La terminal es
+          un panel nocturno con prompt azulejo y cursor albero. Schibsted
+          Grotesk (grotesca con carácter periodístico) + IBM Plex Mono. Esquinas
+          suaves (6px).
+        </p>
+        <div class="modes">
+          <div class="mock dir-a light" data-label="Modo claro"></div>
+          <div class="mock dir-a dark" data-label="Modo oscuro"></div>
+        </div>
+        <div class="swatches">
+          <span class="swatch"
+            ><i style="background: #f6f6f2"></i>Cal #F6F6F2</span
+          >
+          <span class="swatch"
+            ><i style="background: #18202b"></i>Tinta #18202B</span
+          >
+          <span class="swatch"
+            ><i style="background: #a8322a"></i>Almagra #A8322A</span
+          >
+          <span class="swatch"
+            ><i style="background: #1f6f78"></i>Azulejo #1F6F78</span
+          >
+          <span class="swatch"
+            ><i style="background: #d9a441"></i>Albero #D9A441</span
+          >
+          <span class="swatch"
+            ><i style="background: #121921"></i>Noche #121921</span
+          >
+        </div>
+      </section>
+
+      <section class="direction">
+        <h2>B · Azul Klein</h2>
+        <p>
+          Suiza y precisa: papel casi blanco, grafito y un azul Klein intenso
+          que solo aparece en el acento y llenando por completo la sección de la
+          terminal (el gran momento, como el azul del escaneo en la referencia).
+          Switzer (neo-grotesca suiza) + Fragment Mono. Esquinas casi rectas
+          (2px).
+        </p>
+        <div class="modes">
+          <div class="mock dir-b light" data-label="Modo claro"></div>
+          <div class="mock dir-b dark" data-label="Modo oscuro"></div>
+        </div>
+        <div class="swatches">
+          <span class="swatch"
+            ><i style="background: #fafaf7"></i>Papel #FAFAF7</span
+          >
+          <span class="swatch"
+            ><i style="background: #1b1d21"></i>Grafito #1B1D21</span
+          >
+          <span class="swatch"
+            ><i style="background: #1f3bd1"></i>Klein #1F3BD1</span
+          >
+          <span class="swatch"
+            ><i style="background: #c9d2ff"></i>Niebla #C9D2FF</span
+          >
+          <span class="swatch"
+            ><i style="background: #0f1117"></i>Medianoche #0F1117</span
+          >
+        </div>
+      </section>
+    </main>
+    <script>
+      const tpl = document.getElementById('mock')
+      document.querySelectorAll('.mock').forEach((el) => {
+        el.append(tpl.content.cloneNode(true))
+        el.querySelector('.mode-label').textContent = el.dataset.label
+      })
+    </script>
+  </body>
+</html>

@@ -39,17 +39,16 @@ Encaja con los proyectos elegidos: frontends en Vue, backends en Node/Python y p
 
 Los nombres de ruta van **siempre en inglés**. El idioma solo cambia el prefijo: sin prefijo para ES y `/en` para EN.
 
-| Página              | Ruta ES            | Ruta EN               | Contenido                                                           |
-| ------------------- | ------------------ | --------------------- | ------------------------------------------------------------------- |
-| Inicio              | `/`                | `/en`                 | Hero con el posicionamiento, proyectos destacados y CTA de contacto |
-| Proyectos           | `/projects`        | `/en/projects`        | Lista de las 4 fichas                                               |
-| Detalle de proyecto | `/projects/[slug]` | `/en/projects/[slug]` | Ficha completa                                                      |
-| Sobre mí            | `/about`           | `/en/about`           | Trayectoria, stack y forma de trabajar                              |
-| Contacto            | `/contact`         | `/en/contact`         | Email, LinkedIn, GitHub y CV en PDF (ES/EN)                         |
+El sitio tiene **dos tipos de página**. Inicio es una sola página que se recorre con scroll, inspirada en [david-hckh.com](https://david-hckh.com/), y cada proyecto tiene su propia ficha.
+
+| Página              | Ruta ES            | Ruta EN               | Contenido                                                                                      |
+| ------------------- | ------------------ | --------------------- | ---------------------------------------------------------------------------------------------- |
+| Inicio              | `/`                | `/en`                 | Secciones en orden: hero, Sobre mí (`#about`), Proyectos (`#projects`) y Contacto (`#contact`) |
+| Detalle de proyecto | `/projects/[slug]` | `/en/projects/[slug]` | Ficha completa                                                                                 |
 
 Elementos comunes:
 
-- Cabecera con navegación, selector de idioma que conserva la ruta actual y botón de tema claro/oscuro.
+- Cabecera fija con tu nombre, enlaces a las secciones de Inicio (marca la sección visible), selector de idioma que conserva la ruta actual y botón de tema claro/oscuro.
 - Pie con enlaces de contacto.
 - Página de error (`app/error.vue`).
 
@@ -106,14 +105,100 @@ Se priorizan **pocas fichas trabajadas a fondo** frente a muchas superficiales.
 
 ## 9. Diseño
 
-- Se sigue el proceso de la skill `frontend-design` (`.claude/skills/frontend-design/`).
-- **Punto de control obligatorio**: antes de escribir código de UI se presenta una propuesta con:
-  - paleta de 4-6 colores con nombre (variantes para claro y oscuro),
-  - tipografías y su papel, con escala tipográfica,
-  - wireframes ASCII de las páginas,
-  - principios de diseño propios de este portafolio.
-- La propuesta se revisa contra los «defaults genéricos» que lista la skill y **se aprueba antes de implementar**.
-- Los componentes de shadcn-vue se personalizan con esos tokens a través de las variables CSS.
+Dirección aprobada el 2026-10-20: **A · Cal y almagra**. Se construyó con el proceso de la skill `frontend-design`, a partir de la referencia [david-hckh.com](https://david-hckh.com/). La comparación con la alternativa descartada está en [`docs/design/direcciones.html`](design/direcciones.html).
+
+### 9.1 Principios
+
+- **La terminal es lo único llamativo.** El resto (hero, proyectos, contacto) es sobrio, tipográfico y con mucho aire.
+- **La animación ocurre una sola vez, en la terminal.** No se animan entradas por sección ni tarjetas en hover.
+- **La monoespaciada solo aparece en la terminal.** No se usa para etiquetas decorativas.
+- **Los proyectos destacan por la imagen y el texto es mínimo:** título, una línea y etiquetas de stack.
+- **Sin recursos de plantilla:** etiquetas en mayúsculas sobre los títulos, numeración 01/02/03, flechas → en los botones, una palabra destacada en el titular, metadatos separados con puntos.
+- **Sin 3D ni WebGL.** Solo SVG y CSS, para mantener Lighthouse ≥ 90.
+
+### 9.2 Paleta
+
+Todas las combinaciones de texto cumplen **WCAG AA** (≥ 4,5:1).
+
+| Token       | Nombre           | Claro     | Oscuro    | Uso                                       |
+| ----------- | ---------------- | --------- | --------- | ----------------------------------------- |
+| `--bg`      | Cal / Noche      | `#F6F6F2` | `#121921` | Fondo de página                           |
+| `--surface` | —                | `#FFFFFF` | `#19222C` | Tarjetas                                  |
+| `--text`    | Tinta            | `#18202B` | `#E8EAE6` | Texto principal (15,1:1 / 14,6:1)         |
+| `--muted`   | —                | `#5B6573` | `#9AA4AF` | Texto secundario (5,5:1 / 7,0:1)          |
+| `--line`    | —                | `#DFE1DC` | `#26313D` | Bordes y separadores                      |
+| `--accent`  | Almagra          | `#A8322A` | `#E0675C` | Único acento: botón principal, foco, nav  |
+| —           | Azulejo          | `#63B5BE` | `#63B5BE` | Prompt de la terminal (7,5:1 sobre Noche) |
+| —           | Albero           | `#D9A441` | `#D9A441` | Cursor de la terminal                     |
+| `--term-bg` | Noche / Noche +1 | `#121921` | `#0B1016` | Fondo de la terminal en ambos temas       |
+
+Almagra es el rojo de los arcos de la Mezquita, azulejo y albero son los otros colores de Córdoba, y cal es un neutro, no un crema cálido.
+
+### 9.3 Tipografía
+
+- **Schibsted Grotesk** (400, 500, 700, 800) para titulares y texto.
+- **IBM Plex Mono** (400, 500) solo para la terminal.
+- Se cargan con `@nuxt/fonts`, autoalojadas en el build, sin peticiones a Google en producción.
+- Escala clásica de _The Elements of Typographic Style_:
+
+| Rol                 | Tamaño                     | Peso | Interlineado | Tracking |
+| ------------------- | -------------------------- | ---- | ------------ | -------- |
+| Display (tu nombre) | `clamp(48px, 8vw, 96px)`   | 800  | 0,95         | −0,02em  |
+| H2 (secciones)      | `clamp(36px, 5vw, 48px)`   | 800  | 1,05         | −0,02em  |
+| H3 (tarjetas)       | 24px                       | 700  | 1,2          | −0,01em  |
+| Cuerpo grande       | 21px                       | 400  | 1,5          | 0        |
+| Cuerpo              | 18px                       | 400  | 1,6          | 0        |
+| Pequeño / etiquetas | 14px                       | 500  | 1,4          | 0        |
+| Terminal            | `clamp(14px, 1.6vw, 16px)` | 400  | 1,7          | 0        |
+
+- Longitud de línea: como máximo 70 caracteres en los párrafos.
+
+### 9.4 Forma y layout
+
+- Todo alineado a la izquierda, con un contenedor de 1120 px de máximo y 16 px de margen lateral en móvil.
+- Esquinas de 6 px en tarjetas, botones y etiquetas, sin sombras: las superficies se separan con `--line`.
+- Proyectos: Stories Factory destacado a todo el ancho; Tripshot, Unified LLM Gateway y Documind en una rejilla de 2 columnas, más una tarjeta discontinua «¿Tu proyecto?» que lleva a contacto. En móvil, una sola columna.
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ Juan Carlos Cuadrado    Sobre mí  Proyectos  Contacto  ES/EN ◐│
+├──────────────────────────────────────────────────────────────┤
+│  Juan Carlos                                                 │
+│  Cuadrado                                                    │
+│  Ingeniero full-stack en Córdoba…                            │
+│  [Ver proyectos]  [Descargar CV]                             │
+├──────────── #about: terminal fija mientras se escribe ───────┤
+│ ~ $ whoami                                                   │
+│ ~ $ cat stack.json                                           │
+│ ~ $ git log --oneline carrera                                │
+│ ~ $ ls proyectos/        ← cada carpeta enlaza a su ficha    │
+├──────────────────────────────────────────────────────────────┤
+│ #projects  [ Stories Factory · a todo el ancho ]             │
+│            [ Tripshot ]       [ Unified LLM Gateway ]        │
+│            [ Documind ]       [ ¿Tu proyecto? ]              │
+├──────────────────────────────────────────────────────────────┤
+│ #contact   Construyamos algo juntos.                         │
+│            email  LinkedIn  GitHub      CV (ES)  CV (EN)     │
+└──────────────────────────────────────────────────────────────┘
+```
+
+La ficha `/projects/[slug]` sigue este orden: volver, título y resumen, datos (stack, papel, enlaces), portada, problema, solución, decisiones, aprendizajes y siguiente proyecto.
+
+### 9.5 La terminal (Sobre mí)
+
+- Es HTML real: se puede seleccionar, se traduce con i18n y la leen los lectores de pantalla.
+- Mientras se recorre su sección, la terminal queda fija y cada comando se «escribe» cuando llega su tramo de scroll, una sola vez.
+- Comandos y salida:
+  - `whoami`: nombre y rol.
+  - `cat stack.json`: stack por áreas.
+  - `git log --oneline carrera`: experiencia contada como commits.
+  - `ls proyectos/`: una carpeta por proyecto, cada una enlazada a su ficha.
+- Con `prefers-reduced-motion` se muestra entera y estática.
+- Los comandos van en inglés en los dos idiomas; las salidas se traducen.
+
+### 9.6 Implementación de los tokens
+
+- Los tokens anteriores se trasladan a las variables CSS de shadcn-vue (`--background`, `--foreground`, `--primary`, `--muted-foreground`, `--border`, `--ring`, `--radius`…) en formato OKLCH, con sus valores para `:root` y `.dark`.
 
 ## 10. Stack técnico
 
@@ -123,6 +208,7 @@ Se priorizan **pocas fichas trabajadas a fondo** frente a muchas superficiales.
 | Lenguaje           | TypeScript en todo el proyecto (`<script setup lang="ts">` en los componentes). Comprobación de tipos con `vue-tsc` + `typescript@^6` y el script `typecheck` (`nuxt typecheck`). TypeScript 7 todavía no es compatible con `vue-tsc` |
 | Gestor de paquetes | pnpm                                                                                                                                                                                                                                  |
 | UI                 | shadcn-vue a través de `shadcn-nuxt`, con componentes en `app/components/ui/`                                                                                                                                                         |
+| Fuentes            | `@nuxt/fonts`: Schibsted Grotesk e IBM Plex Mono autoalojadas                                                                                                                                                                         |
 | Estilos            | Tailwind CSS v4 (`@tailwindcss/vite`)                                                                                                                                                                                                 |
 | Tema               | `@nuxtjs/color-mode` (`classSuffix: ''`)                                                                                                                                                                                              |
 | i18n               | `@nuxtjs/i18n` (`strategy: 'prefix_except_default'`)                                                                                                                                                                                  |
@@ -140,11 +226,8 @@ app/
 │   └── ui/              # componentes shadcn-vue
 ├── layouts/default.vue
 ├── pages/
-│   ├── index.vue
-│   ├── projects/index.vue
-│   ├── projects/[slug].vue
-│   ├── about.vue
-│   └── contact.vue
+│   ├── index.vue          # hero + #about + #projects + #contact
+│   └── projects/[slug].vue
 ├── app.vue
 └── error.vue
 content/
@@ -174,11 +257,11 @@ nuxt.config.ts
 
 1. **Limpieza y git**: quitar `primevue` de `.mcp.json`, migrar a pnpm (borrar `package-lock.json` y `node_modules`, `pnpm install`), `git init`, primer commit, crear el repo en GitHub y hacer push.
 2. **Tooling**: `@nuxt/eslint` + Prettier con los scripts `lint` y `format`, y `vue-tsc` + `typescript` con el script `typecheck`.
-3. **Propuesta de diseño**: punto de control, hay que aprobarla antes de seguir.
-4. **UI base**: shadcn-nuxt, Tailwind v4, tokens, color-mode y layout.
+3. **Propuesta de diseño** ✅: aprobada la dirección A (sección 9).
+4. **UI base**: shadcn-nuxt, Tailwind v4, `@nuxt/fonts`, tokens de la sección 9, color-mode y layout.
 5. **i18n**: configuración, archivos de traducción y prefijo `/en`, con rutas en inglés en ambos idiomas.
 6. **Contenido**: colecciones, esquema y borradores de las 4 fichas.
-7. **Páginas**: Inicio, Proyectos, Detalle, Sobre mí, Contacto y SEO.
+7. **Páginas**: Inicio (hero, terminal, proyectos, contacto), detalle de proyecto y SEO.
 8. **Analítica y despliegue**: `@vercel/analytics` y `nuxt generate`. Juan Carlos conecta el repo en Vercel.
 
 ### Convenciones de trabajo
@@ -195,7 +278,7 @@ Mientras no lleguen se usan placeholders, así que no bloquean la implementació
 - [ ] CV en PDF, inglés
 - [ ] Capturas o vídeo de cada proyecto
 - [ ] Aprendizajes y decisiones de cada proyecto
-- [ ] Texto o datos para «Sobre mí»
+- [ ] Texto o datos para «Sobre mí», incluidas las entradas de experiencia del `git log` de la terminal
 - [ ] Conectar el repo en Vercel (necesita su sesión)
 
 ## 13. Verificación
@@ -203,29 +286,35 @@ Mientras no lleguen se usan placeholders, así que no bloquean la implementació
 - `pnpm lint`, `pnpm format:check`, `pnpm typecheck` y `pnpm generate` sin errores.
 - `pnpm dev` y recorrido con el MCP de Playwright o el de Chrome DevTools: todas las páginas en ES y EN, en tema claro y oscuro, en escritorio y en móvil (375 px), con capturas.
 - El selector de idioma conserva la ruta, los enlaces a repos y CV funcionan y no hay scroll horizontal en móvil.
+- La terminal se escribe una sola vez al hacer scroll, y con `prefers-reduced-motion` aparece completa y estática.
 - Tras el despliegue: la URL de `*.vercel.app` carga y las visitas aparecen en Vercel Analytics.
 
 ## 14. Registro de decisiones
 
-| #   | Decisión                                                                             | Alternativas descartadas                        |
-| --- | ------------------------------------------------------------------------------------ | ----------------------------------------------- |
-| 1   | Portafolio personal orientado a reclutadores                                         | Freelance, comunidad, archivo personal          |
-| 2   | Nuxt Content con Markdown                                                            | GitHub API, CMS headless, híbrido               |
-| 3   | shadcn-vue + Tailwind v4                                                             | PrimeVue (todo, estilado o unstyled)            |
-| 4   | v1 sin blog                                                                          | —                                               |
-| 5   | Bilingüe ES (por defecto) + EN                                                       | Solo ES, solo EN                                |
-| 6   | Contacto por enlaces + CV PDF                                                        | Formulario con servicio externo, Nitro + Resend |
-| 7   | 4 fichas a fondo                                                                     | 5-8 medias, 1-2 casos de estudio                |
-| 8   | pnpm como gestor de paquetes                                                         | npm                                             |
-| 9   | Rutas solo en inglés (`/projects`, `/about`, `/contact`) en ambos idiomas            | Rutas traducidas por idioma                     |
-| 10  | Vercel                                                                               | Cloudflare Pages, Netlify, GitHub Pages         |
-| 11  | Full-stack + IA aplicada                                                             | Frontend Vue/Nuxt, AI/LLM engineer              |
-| 12  | Borradores de Claude + revisión                                                      | Escritos por Juan Carlos, plantillas vacías     |
-| 13  | CV aportado en ES y EN                                                               | Uno solo, generado desde el sitio               |
-| 14  | `*.vercel.app` por ahora                                                             | Dominio propio                                  |
-| 15  | Propuesta de diseño previa, claro y oscuro                                           | Solo oscuro, sin propuesta                      |
-| 16  | `@nuxt/eslint` + Prettier                                                            | Solo ESLint, nada                               |
-| 17  | Vercel Web Analytics                                                                 | Sin analítica                                   |
-| 18  | Claude crea el repo y hace push                                                      | Push manual, todo local                         |
-| 19  | Eliminar el MCP `primevue`                                                           | Mantenerlo                                      |
-| 20  | TypeScript con comprobación de tipos (`nuxt typecheck`), siguiendo la guía de Nuxt 4 | JavaScript                                      |
+| #   | Decisión                                                                             | Alternativas descartadas                          |
+| --- | ------------------------------------------------------------------------------------ | ------------------------------------------------- |
+| 1   | Portafolio personal orientado a reclutadores                                         | Freelance, comunidad, archivo personal            |
+| 2   | Nuxt Content con Markdown                                                            | GitHub API, CMS headless, híbrido                 |
+| 3   | shadcn-vue + Tailwind v4                                                             | PrimeVue (todo, estilado o unstyled)              |
+| 4   | v1 sin blog                                                                          | —                                                 |
+| 5   | Bilingüe ES (por defecto) + EN                                                       | Solo ES, solo EN                                  |
+| 6   | Contacto por enlaces + CV PDF                                                        | Formulario con servicio externo, Nitro + Resend   |
+| 7   | 4 fichas a fondo                                                                     | 5-8 medias, 1-2 casos de estudio                  |
+| 8   | pnpm como gestor de paquetes                                                         | npm                                               |
+| 9   | Rutas solo en inglés (`/projects/[slug]`) en ambos idiomas                           | Rutas traducidas por idioma                       |
+| 10  | Vercel                                                                               | Cloudflare Pages, Netlify, GitHub Pages           |
+| 11  | Full-stack + IA aplicada                                                             | Frontend Vue/Nuxt, AI/LLM engineer                |
+| 12  | Borradores de Claude + revisión                                                      | Escritos por Juan Carlos, plantillas vacías       |
+| 13  | CV aportado en ES y EN                                                               | Uno solo, generado desde el sitio                 |
+| 14  | `*.vercel.app` por ahora                                                             | Dominio propio                                    |
+| 15  | Propuesta de diseño previa, claro y oscuro                                           | Solo oscuro, sin propuesta                        |
+| 16  | `@nuxt/eslint` + Prettier                                                            | Solo ESLint, nada                                 |
+| 17  | Vercel Web Analytics                                                                 | Sin analítica                                     |
+| 18  | Claude crea el repo y hace push                                                      | Push manual, todo local                           |
+| 19  | Eliminar el MCP `primevue`                                                           | Mantenerlo                                        |
+| 20  | TypeScript con comprobación de tipos (`nuxt typecheck`), siguiendo la guía de Nuxt 4 | JavaScript                                        |
+| 21  | Inicio como una sola página con secciones + fichas en `/projects/[slug]`             | Rutas `/about` y `/contact` propias, multipágina  |
+| 22  | La terminal como momento memorable de «Sobre mí»                                     | Model card de IA, diagrama de arquitectura        |
+| 23  | Sin 3D: SVG + CSS                                                                    | Escena 3D ligera con TresJS                       |
+| 24  | Grotesca técnica + mono                                                              | Editorial (serif + sans), una sola sans expresiva |
+| 25  | Dirección A · Cal y almagra (Schibsted Grotesk + IBM Plex Mono)                      | B · Azul Klein (Switzer + Fragment Mono)          |
