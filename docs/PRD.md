@@ -14,17 +14,18 @@ El proyecto `jccg-code-portal` arranca desde el starter mínimo de Nuxt 4 (`app/
 Tener un portafolio público que haga que **reclutadores y empresas te contacten** para entrevistas u ofertas.
 
 ### Métricas de éxito
+
 - Visitas a las fichas de proyecto, medidas con Vercel Web Analytics.
 - Clics en los enlaces de contacto (email, LinkedIn) y descargas del CV.
 - Contactos recibidos que mencionan el portafolio.
 
 ## 3. Audiencia
 
-| Perfil | Qué necesita | Cómo lo resuelve el sitio |
-|---|---|---|
-| Reclutador no técnico | Entender en 30 s qué haces y cómo contactarte | Hero con tu rol, CTA de contacto visible y CV descargable |
-| Reclutador o lead técnico | Ver la calidad del trabajo y del código | Fichas a fondo con stack, decisiones y enlaces a repos públicos. El propio repo del portafolio también es público |
-| Empresas de España/LatAm e internacionales | Leer en su idioma | Sitio bilingüe ES/EN |
+| Perfil                                     | Qué necesita                                  | Cómo lo resuelve el sitio                                                                                         |
+| ------------------------------------------ | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Reclutador no técnico                      | Entender en 30 s qué haces y cómo contactarte | Hero con tu rol, CTA de contacto visible y CV descargable                                                         |
+| Reclutador o lead técnico                  | Ver la calidad del trabajo y del código       | Fichas a fondo con stack, decisiones y enlaces a repos públicos. El propio repo del portafolio también es público |
+| Empresas de España/LatAm e internacionales | Leer en su idioma                             | Sitio bilingüe ES/EN                                                                                              |
 
 ## 4. Posicionamiento
 
@@ -38,20 +39,22 @@ Encaja con los proyectos elegidos: frontends en Vue, backends en Node/Python y p
 
 Los nombres de ruta van **siempre en inglés**. El idioma solo cambia el prefijo: sin prefijo para ES y `/en` para EN.
 
-| Página | Ruta ES | Ruta EN | Contenido |
-|---|---|---|---|
-| Inicio | `/` | `/en` | Hero con el posicionamiento, proyectos destacados y CTA de contacto |
-| Proyectos | `/projects` | `/en/projects` | Lista de las 4 fichas |
-| Detalle de proyecto | `/projects/[slug]` | `/en/projects/[slug]` | Ficha completa |
-| Sobre mí | `/about` | `/en/about` | Trayectoria, stack y forma de trabajar |
-| Contacto | `/contact` | `/en/contact` | Email, LinkedIn, GitHub y CV en PDF (ES/EN) |
+| Página              | Ruta ES            | Ruta EN               | Contenido                                                           |
+| ------------------- | ------------------ | --------------------- | ------------------------------------------------------------------- |
+| Inicio              | `/`                | `/en`                 | Hero con el posicionamiento, proyectos destacados y CTA de contacto |
+| Proyectos           | `/projects`        | `/en/projects`        | Lista de las 4 fichas                                               |
+| Detalle de proyecto | `/projects/[slug]` | `/en/projects/[slug]` | Ficha completa                                                      |
+| Sobre mí            | `/about`           | `/en/about`           | Trayectoria, stack y forma de trabajar                              |
+| Contacto            | `/contact`         | `/en/contact`         | Email, LinkedIn, GitHub y CV en PDF (ES/EN)                         |
 
 Elementos comunes:
+
 - Cabecera con navegación, selector de idioma que conserva la ruta actual y botón de tema claro/oscuro.
 - Pie con enlaces de contacto.
 - Página de error (`app/error.vue`).
 
 ### 5.2 Fuera de la v1
+
 - Blog.
 - Formulario de contacto, y en general cualquier backend o server route.
 - Dominio propio (de momento `*.vercel.app`).
@@ -59,16 +62,17 @@ Elementos comunes:
 
 ## 6. Proyectos destacados (v1)
 
-| Proyecto | Repo | Qué es | Por qué está |
-|---|---|---|---|
-| **Stories Factory** | [`jccg-code-api`](https://github.com/JCCG-code/jccg-code-api) | Pipeline orquestado con n8n que usa Gemini, Imagen 3, Veo 2.0 y Lyria para generar guion, voz, música y vídeo, los monta con FFmpeg y publica en TikTok y YouTube Shorts. Node/Express, MongoDB, Docker y GCS | IA aplicada de extremo a extremo, con demo en vídeo |
-| **Tripshot** | [`tripshot`](https://github.com/JCCG-code/tripshot) | Red social de viajes: Vue 3 PWA con Web Push y tiempo real | Full-stack y producto completo |
-| **Unified LLM Gateway** | [`unified-llm-gateway`](https://github.com/JCCG-code/unified-llm-gateway) | Gateway en Python para LLMs | Backend e infraestructura de IA |
-| **Documind** | [`documind`](https://github.com/JCCG-code/documind) | Aplicación en Vue (detalle por documentar a partir de su README) | Frontend + IA |
+| Proyecto                | Repo                                                                      | Qué es                                                                                                                                                                                                        | Por qué está                                        |
+| ----------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **Stories Factory**     | [`jccg-code-api`](https://github.com/JCCG-code/jccg-code-api)             | Pipeline orquestado con n8n que usa Gemini, Imagen 3, Veo 2.0 y Lyria para generar guion, voz, música y vídeo, los monta con FFmpeg y publica en TikTok y YouTube Shorts. Node/Express, MongoDB, Docker y GCS | IA aplicada de extremo a extremo, con demo en vídeo |
+| **Tripshot**            | [`tripshot`](https://github.com/JCCG-code/tripshot)                       | Red social de viajes: Vue 3 PWA con Web Push y tiempo real                                                                                                                                                    | Full-stack y producto completo                      |
+| **Unified LLM Gateway** | [`unified-llm-gateway`](https://github.com/JCCG-code/unified-llm-gateway) | Gateway en Python para LLMs                                                                                                                                                                                   | Backend e infraestructura de IA                     |
+| **Documind**            | [`documind`](https://github.com/JCCG-code/documind)                       | Aplicación en Vue (detalle por documentar a partir de su README)                                                                                                                                              | Frontend + IA                                       |
 
 Se priorizan **pocas fichas trabajadas a fondo** frente a muchas superficiales.
 
 ### Estructura de cada ficha
+
 - Título y resumen de una línea
 - Problema que resuelve
 - Solución y arquitectura
@@ -79,6 +83,7 @@ Se priorizan **pocas fichas trabajadas a fondo** frente a muchas superficiales.
 - Enlaces: repo y demo, si existe
 
 ### Flujo de redacción
+
 1. Claude escribe un borrador en ES y EN a partir del README y el código de cada repo.
 2. Juan Carlos lo revisa y añade capturas, decisiones y aprendizajes que no están en el código.
 
@@ -112,21 +117,22 @@ Se priorizan **pocas fichas trabajadas a fondo** frente a muchas superficiales.
 
 ## 10. Stack técnico
 
-| Área | Elección |
-|---|---|
-| Framework | Nuxt 4 (`app/` como raíz del código) |
-| Gestor de paquetes | pnpm |
-| UI | shadcn-vue a través de `shadcn-nuxt`, con componentes en `app/components/ui/` |
-| Estilos | Tailwind CSS v4 (`@tailwindcss/vite`) |
-| Tema | `@nuxtjs/color-mode` (`classSuffix: ''`) |
-| i18n | `@nuxtjs/i18n` (`strategy: 'prefix_except_default'`) |
-| Contenido | `@nuxt/content` con colecciones por idioma y esquema zod |
-| Analítica | `@vercel/analytics` |
-| Lint y formato | `@nuxt/eslint` + Prettier, configuración por defecto |
-| Hosting | Vercel (estático), `*.vercel.app` |
-| Repositorio | `JCCG-code/jccg-code-portal`, público |
+| Área               | Elección                                                                      |
+| ------------------ | ----------------------------------------------------------------------------- |
+| Framework          | Nuxt 4 (`app/` como raíz del código)                                          |
+| Gestor de paquetes | pnpm                                                                          |
+| UI                 | shadcn-vue a través de `shadcn-nuxt`, con componentes en `app/components/ui/` |
+| Estilos            | Tailwind CSS v4 (`@tailwindcss/vite`)                                         |
+| Tema               | `@nuxtjs/color-mode` (`classSuffix: ''`)                                      |
+| i18n               | `@nuxtjs/i18n` (`strategy: 'prefix_except_default'`)                          |
+| Contenido          | `@nuxt/content` con colecciones por idioma y esquema zod                      |
+| Analítica          | `@vercel/analytics`                                                           |
+| Lint y formato     | `@nuxt/eslint` + Prettier, configuración por defecto                          |
+| Hosting            | Vercel (estático), `*.vercel.app`                                             |
+| Repositorio        | `JCCG-code/jccg-code-portal`, público                                         |
 
 ### Estructura prevista
+
 ```
 app/
 ├── components/
@@ -150,17 +156,18 @@ nuxt.config.ts
 ```
 
 ### Modelo de datos de un proyecto (frontmatter)
-| Campo | Tipo | Notas |
-|---|---|---|
-| `title` | string | |
-| `summary` | string | Una línea, para tarjetas y SEO |
-| `stack` | string[] | |
-| `repo` | url | Opcional (repos privados) |
-| `demo` | url | Opcional |
-| `cover` | string | Imagen principal |
-| `images` | string[] | Galería |
-| `order` | number | Orden en la lista |
-| `featured` | boolean | Aparece en Inicio |
+
+| Campo      | Tipo     | Notas                          |
+| ---------- | -------- | ------------------------------ |
+| `title`    | string   |                                |
+| `summary`  | string   | Una línea, para tarjetas y SEO |
+| `stack`    | string[] |                                |
+| `repo`     | url      | Opcional (repos privados)      |
+| `demo`     | url      | Opcional                       |
+| `cover`    | string   | Imagen principal               |
+| `images`   | string[] | Galería                        |
+| `order`    | number   | Orden en la lista              |
+| `featured` | boolean  | Aparece en Inicio              |
 
 ## 11. Plan de implementación
 
@@ -174,6 +181,7 @@ nuxt.config.ts
 8. **Analítica y despliegue**: `@vercel/analytics` y `nuxt generate`. Juan Carlos conecta el repo en Vercel.
 
 ### Convenciones de trabajo
+
 - Commits pequeños, uno por paso, con push al repo público y **sin force-push**.
 
 ## 12. Datos pendientes (los aporta Juan Carlos)
@@ -198,24 +206,24 @@ Mientras no lleguen se usan placeholders, así que no bloquean la implementació
 
 ## 14. Registro de decisiones
 
-| # | Decisión | Alternativas descartadas |
-|---|---|---|
-| 1 | Portafolio personal orientado a reclutadores | Freelance, comunidad, archivo personal |
-| 2 | Nuxt Content con Markdown | GitHub API, CMS headless, híbrido |
-| 3 | shadcn-vue + Tailwind v4 | PrimeVue (todo, estilado o unstyled) |
-| 4 | v1 sin blog | — |
-| 5 | Bilingüe ES (por defecto) + EN | Solo ES, solo EN |
-| 6 | Contacto por enlaces + CV PDF | Formulario con servicio externo, Nitro + Resend |
-| 7 | 4 fichas a fondo | 5-8 medias, 1-2 casos de estudio |
-| 8 | pnpm como gestor de paquetes | npm |
-| 9 | Rutas solo en inglés (`/projects`, `/about`, `/contact`) en ambos idiomas | Rutas traducidas por idioma |
-| 10 | Vercel | Cloudflare Pages, Netlify, GitHub Pages |
-| 11 | Full-stack + IA aplicada | Frontend Vue/Nuxt, AI/LLM engineer |
-| 12 | Borradores de Claude + revisión | Escritos por Juan Carlos, plantillas vacías |
-| 13 | CV aportado en ES y EN | Uno solo, generado desde el sitio |
-| 14 | `*.vercel.app` por ahora | Dominio propio |
-| 15 | Propuesta de diseño previa, claro y oscuro | Solo oscuro, sin propuesta |
-| 16 | `@nuxt/eslint` + Prettier | Solo ESLint, nada |
-| 17 | Vercel Web Analytics | Sin analítica |
-| 18 | Claude crea el repo y hace push | Push manual, todo local |
-| 19 | Eliminar el MCP `primevue` | Mantenerlo |
+| #   | Decisión                                                                  | Alternativas descartadas                        |
+| --- | ------------------------------------------------------------------------- | ----------------------------------------------- |
+| 1   | Portafolio personal orientado a reclutadores                              | Freelance, comunidad, archivo personal          |
+| 2   | Nuxt Content con Markdown                                                 | GitHub API, CMS headless, híbrido               |
+| 3   | shadcn-vue + Tailwind v4                                                  | PrimeVue (todo, estilado o unstyled)            |
+| 4   | v1 sin blog                                                               | —                                               |
+| 5   | Bilingüe ES (por defecto) + EN                                            | Solo ES, solo EN                                |
+| 6   | Contacto por enlaces + CV PDF                                             | Formulario con servicio externo, Nitro + Resend |
+| 7   | 4 fichas a fondo                                                          | 5-8 medias, 1-2 casos de estudio                |
+| 8   | pnpm como gestor de paquetes                                              | npm                                             |
+| 9   | Rutas solo en inglés (`/projects`, `/about`, `/contact`) en ambos idiomas | Rutas traducidas por idioma                     |
+| 10  | Vercel                                                                    | Cloudflare Pages, Netlify, GitHub Pages         |
+| 11  | Full-stack + IA aplicada                                                  | Frontend Vue/Nuxt, AI/LLM engineer              |
+| 12  | Borradores de Claude + revisión                                           | Escritos por Juan Carlos, plantillas vacías     |
+| 13  | CV aportado en ES y EN                                                    | Uno solo, generado desde el sitio               |
+| 14  | `*.vercel.app` por ahora                                                  | Dominio propio                                  |
+| 15  | Propuesta de diseño previa, claro y oscuro                                | Solo oscuro, sin propuesta                      |
+| 16  | `@nuxt/eslint` + Prettier                                                 | Solo ESLint, nada                               |
+| 17  | Vercel Web Analytics                                                      | Sin analítica                                   |
+| 18  | Claude crea el repo y hace push                                           | Push manual, todo local                         |
+| 19  | Eliminar el MCP `primevue`                                                | Mantenerlo                                      |
