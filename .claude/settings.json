@@ -9,6 +9,11 @@
             "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/format-and-typecheck.mjs\"",
             "timeout": 180,
             "statusMessage": "Formatting and type-checking..."
+          },
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-change.mjs\"",
+            "timeout": 10
           }
         ]
       }
