@@ -102,7 +102,7 @@ Se priorizan **pocas fichas trabajadas a fondo** frente a muchas superficiales.
 - **Responsive**: funciona desde 375 px de ancho, sin scroll horizontal.
 - **Accesibilidad**: foco de teclado visible, contraste AA en los dos temas, `prefers-reduced-motion` respetado y textos alternativos en las imágenes.
 - **Rendimiento**: imágenes optimizadas y sin JS innecesario. Objetivo: Lighthouse ≥ 90 en todas las categorías.
-- **Calidad de código**: ESLint (`@nuxt/eslint`) y Prettier sin errores. El código es público y forma parte de la muestra.
+- **Calidad de código**: ESLint (`@nuxt/eslint`), Prettier y `nuxt typecheck` sin errores. El código es público y forma parte de la muestra.
 
 ## 9. Diseño
 
@@ -117,19 +117,20 @@ Se priorizan **pocas fichas trabajadas a fondo** frente a muchas superficiales.
 
 ## 10. Stack técnico
 
-| Área               | Elección                                                                                                                                          |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Framework          | Nuxt 4 (`app/` como raíz del código)                                                                                                              |
-| Gestor de paquetes | pnpm                                                                                                                                              |
-| UI                 | shadcn-vue a través de `shadcn-nuxt`, con componentes en `app/components/ui/`                                                                     |
-| Estilos            | Tailwind CSS v4 (`@tailwindcss/vite`)                                                                                                             |
-| Tema               | `@nuxtjs/color-mode` (`classSuffix: ''`)                                                                                                          |
-| i18n               | `@nuxtjs/i18n` (`strategy: 'prefix_except_default'`)                                                                                              |
-| Contenido          | `@nuxt/content` con colecciones por idioma y esquema zod                                                                                          |
-| Analítica          | `@vercel/analytics`                                                                                                                               |
-| Lint y formato     | `@nuxt/eslint` + Prettier con la configuración de Tripshot (`.prettierrc.json`: sin `;`, comillas simples, sin trailing commas) y `.editorconfig` |
-| Hosting            | Vercel (estático), `*.vercel.app`                                                                                                                 |
-| Repositorio        | `JCCG-code/jccg-code-portal`, público                                                                                                             |
+| Área               | Elección                                                                                                                                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework          | Nuxt 4 (`app/` como raíz del código)                                                                                                                                                                                                  |
+| Lenguaje           | TypeScript en todo el proyecto (`<script setup lang="ts">` en los componentes). Comprobación de tipos con `vue-tsc` + `typescript@^6` y el script `typecheck` (`nuxt typecheck`). TypeScript 7 todavía no es compatible con `vue-tsc` |
+| Gestor de paquetes | pnpm                                                                                                                                                                                                                                  |
+| UI                 | shadcn-vue a través de `shadcn-nuxt`, con componentes en `app/components/ui/`                                                                                                                                                         |
+| Estilos            | Tailwind CSS v4 (`@tailwindcss/vite`)                                                                                                                                                                                                 |
+| Tema               | `@nuxtjs/color-mode` (`classSuffix: ''`)                                                                                                                                                                                              |
+| i18n               | `@nuxtjs/i18n` (`strategy: 'prefix_except_default'`)                                                                                                                                                                                  |
+| Contenido          | `@nuxt/content` con colecciones por idioma y esquema zod                                                                                                                                                                              |
+| Analítica          | `@vercel/analytics`                                                                                                                                                                                                                   |
+| Lint y formato     | `@nuxt/eslint` + Prettier con la configuración de Tripshot (`.prettierrc.json`: sin `;`, comillas simples, sin trailing commas) y `.editorconfig`                                                                                     |
+| Hosting            | Vercel (estático), `*.vercel.app`                                                                                                                                                                                                     |
+| Repositorio        | `JCCG-code/jccg-code-portal`, público                                                                                                                                                                                                 |
 
 ### Estructura prevista
 
@@ -172,7 +173,7 @@ nuxt.config.ts
 ## 11. Plan de implementación
 
 1. **Limpieza y git**: quitar `primevue` de `.mcp.json`, migrar a pnpm (borrar `package-lock.json` y `node_modules`, `pnpm install`), `git init`, primer commit, crear el repo en GitHub y hacer push.
-2. **Tooling**: `@nuxt/eslint` + Prettier con los scripts `lint` y `format`.
+2. **Tooling**: `@nuxt/eslint` + Prettier con los scripts `lint` y `format`, y `vue-tsc` + `typescript` con el script `typecheck`.
 3. **Propuesta de diseño**: punto de control, hay que aprobarla antes de seguir.
 4. **UI base**: shadcn-nuxt, Tailwind v4, tokens, color-mode y layout.
 5. **i18n**: configuración, archivos de traducción y prefijo `/en`, con rutas en inglés en ambos idiomas.
@@ -199,31 +200,32 @@ Mientras no lleguen se usan placeholders, así que no bloquean la implementació
 
 ## 13. Verificación
 
-- `pnpm lint` y `pnpm generate` sin errores.
+- `pnpm lint`, `pnpm format:check`, `pnpm typecheck` y `pnpm generate` sin errores.
 - `pnpm dev` y recorrido con el MCP de Playwright o el de Chrome DevTools: todas las páginas en ES y EN, en tema claro y oscuro, en escritorio y en móvil (375 px), con capturas.
 - El selector de idioma conserva la ruta, los enlaces a repos y CV funcionan y no hay scroll horizontal en móvil.
 - Tras el despliegue: la URL de `*.vercel.app` carga y las visitas aparecen en Vercel Analytics.
 
 ## 14. Registro de decisiones
 
-| #   | Decisión                                                                  | Alternativas descartadas                        |
-| --- | ------------------------------------------------------------------------- | ----------------------------------------------- |
-| 1   | Portafolio personal orientado a reclutadores                              | Freelance, comunidad, archivo personal          |
-| 2   | Nuxt Content con Markdown                                                 | GitHub API, CMS headless, híbrido               |
-| 3   | shadcn-vue + Tailwind v4                                                  | PrimeVue (todo, estilado o unstyled)            |
-| 4   | v1 sin blog                                                               | —                                               |
-| 5   | Bilingüe ES (por defecto) + EN                                            | Solo ES, solo EN                                |
-| 6   | Contacto por enlaces + CV PDF                                             | Formulario con servicio externo, Nitro + Resend |
-| 7   | 4 fichas a fondo                                                          | 5-8 medias, 1-2 casos de estudio                |
-| 8   | pnpm como gestor de paquetes                                              | npm                                             |
-| 9   | Rutas solo en inglés (`/projects`, `/about`, `/contact`) en ambos idiomas | Rutas traducidas por idioma                     |
-| 10  | Vercel                                                                    | Cloudflare Pages, Netlify, GitHub Pages         |
-| 11  | Full-stack + IA aplicada                                                  | Frontend Vue/Nuxt, AI/LLM engineer              |
-| 12  | Borradores de Claude + revisión                                           | Escritos por Juan Carlos, plantillas vacías     |
-| 13  | CV aportado en ES y EN                                                    | Uno solo, generado desde el sitio               |
-| 14  | `*.vercel.app` por ahora                                                  | Dominio propio                                  |
-| 15  | Propuesta de diseño previa, claro y oscuro                                | Solo oscuro, sin propuesta                      |
-| 16  | `@nuxt/eslint` + Prettier                                                 | Solo ESLint, nada                               |
-| 17  | Vercel Web Analytics                                                      | Sin analítica                                   |
-| 18  | Claude crea el repo y hace push                                           | Push manual, todo local                         |
-| 19  | Eliminar el MCP `primevue`                                                | Mantenerlo                                      |
+| #   | Decisión                                                                             | Alternativas descartadas                        |
+| --- | ------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| 1   | Portafolio personal orientado a reclutadores                                         | Freelance, comunidad, archivo personal          |
+| 2   | Nuxt Content con Markdown                                                            | GitHub API, CMS headless, híbrido               |
+| 3   | shadcn-vue + Tailwind v4                                                             | PrimeVue (todo, estilado o unstyled)            |
+| 4   | v1 sin blog                                                                          | —                                               |
+| 5   | Bilingüe ES (por defecto) + EN                                                       | Solo ES, solo EN                                |
+| 6   | Contacto por enlaces + CV PDF                                                        | Formulario con servicio externo, Nitro + Resend |
+| 7   | 4 fichas a fondo                                                                     | 5-8 medias, 1-2 casos de estudio                |
+| 8   | pnpm como gestor de paquetes                                                         | npm                                             |
+| 9   | Rutas solo en inglés (`/projects`, `/about`, `/contact`) en ambos idiomas            | Rutas traducidas por idioma                     |
+| 10  | Vercel                                                                               | Cloudflare Pages, Netlify, GitHub Pages         |
+| 11  | Full-stack + IA aplicada                                                             | Frontend Vue/Nuxt, AI/LLM engineer              |
+| 12  | Borradores de Claude + revisión                                                      | Escritos por Juan Carlos, plantillas vacías     |
+| 13  | CV aportado en ES y EN                                                               | Uno solo, generado desde el sitio               |
+| 14  | `*.vercel.app` por ahora                                                             | Dominio propio                                  |
+| 15  | Propuesta de diseño previa, claro y oscuro                                           | Solo oscuro, sin propuesta                      |
+| 16  | `@nuxt/eslint` + Prettier                                                            | Solo ESLint, nada                               |
+| 17  | Vercel Web Analytics                                                                 | Sin analítica                                   |
+| 18  | Claude crea el repo y hace push                                                      | Push manual, todo local                         |
+| 19  | Eliminar el MCP `primevue`                                                           | Mantenerlo                                      |
+| 20  | TypeScript con comprobación de tipos (`nuxt typecheck`), siguiendo la guía de Nuxt 4 | JavaScript                                      |
